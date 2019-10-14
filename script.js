@@ -1,44 +1,14 @@
-const myLibrary = [
-	new Book(
-		0,
-		'Sample Book',
-		'Sample author',
-		100,
-		true,
-		'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-	),
-	new Book(
-		1,
-		'Sample Book 1',
-		'Sample author 1',
-		100,
-		true,
-		'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-	),
-	new Book(
-		2,
-		'Sample Book 2',
-		'Sample author 2',
-		100,
-		true,
-		'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-	),
-	new Book(
-		3,
-		'Sample Book 3',
-		'Sample author 3',
-		100,
-		true,
-		'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-	)
-];
+const myLibrary = [];
 
 render();
 
 function render() {
 	const library = document.querySelector('.library');
 	library.innerHTML = '';
-	myLibrary.forEach(book => {
+
+	libraryData = JSON.parse(localStorage.getItem('library') || '[]');
+
+	libraryData.forEach(book => {
 		let bookHtml = `
     <div id=book-${book.id}>
       <p>${book.title}</p>
@@ -85,6 +55,8 @@ function addBookToLibrary(e) {
 	const book = new Book(id, title, author, numPages, isRead, image);
 	myLibrary.push(book);
 
+	localStorage.setItem('library', JSON.stringify(myLibrary));
+
 	render();
 }
 
@@ -95,6 +67,8 @@ function deleteBook(event) {
 	if (index !== -1) {
 		myLibrary.splice(index, 1);
 	}
+
+	localStorage.setItem('library', JSON.stringify(myLibrary));
 	render();
 }
 
@@ -103,6 +77,7 @@ function toggleRead(event) {
 	if (index !== -1) {
 		myLibrary[index].toggleRead();
 	}
+	localStorage.setItem('library', JSON.stringify(myLibrary));
 	render();
 }
 
