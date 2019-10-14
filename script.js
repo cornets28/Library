@@ -1,10 +1,11 @@
 const myLibrary = [];
 
-render();
+const render = () => {
+	let library = ``;
 
-function render() {
-	library = '';
-	myLibrary.forEach(book => {
+	const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
+
+	libraryData.forEach(book => {
 		let bookHtml = `
     <tr id=book-${book.id}>
       <td>${book.title}</td>
@@ -23,7 +24,9 @@ function render() {
 	});
 
 	document.getElementById('table-body').innerHTML = library;
-}
+};
+
+render();
 
 function Book(id, title, author, numPages, isRead, image) {
 	this.id = id;
@@ -38,13 +41,12 @@ Book.prototype.toggleRead = function() {
 	this.isRead = !this.isRead;
 };
 
-function addBookToLibrary(e) {
-	e.preventDefault();
-	const author = document.querySelector('#book-author').value;
-	const title = document.querySelector('#book-title').value;
-	const numPages = document.querySelector('#book-numPages').value;
-	const isRead = document.querySelector('#book-isRead').checked;
-	const image = document.querySelector('#book-image').value;
+const addBookToLibrary = e => {
+	const author = document.querySelector('#book-author');
+	const title = document.querySelector('#book-title');
+	const numPages = document.querySelector('#book-numPages');
+	const isRead = document.querySelector('#book-isRead');
+	const image = document.querySelector('#book-image');
 
 	// Create id from last item's id
 	let id;
@@ -54,17 +56,16 @@ function addBookToLibrary(e) {
 		id = 0;
 	}
 
-	const book = new Book(id, title, author, numPages, isRead, image);
+	const book = new Book(id, title.value, author.value, numPages.value, isRead.checked, image.value);
 	myLibrary.push(book);
-
 	localStorage.setItem('library', JSON.stringify(myLibrary));
 
 	render();
-}
+};
 
 document.querySelector('#add-book').addEventListener('click', addBookToLibrary);
 
-function deleteBook(event) {
+const deleteBook = event => {
 	const index = getIndex(event);
 	if (index !== -1) {
 		myLibrary.splice(index, 1);
@@ -72,22 +73,22 @@ function deleteBook(event) {
 
 	localStorage.setItem('library', JSON.stringify(myLibrary));
 	render();
-}
+};
 
-function toggleRead(event) {
+const toggleRead = event => {
 	const index = getIndex(event);
 	if (index !== -1) {
 		myLibrary[index].toggleRead();
 	}
 	localStorage.setItem('library', JSON.stringify(myLibrary));
 	render();
-}
+};
 
-function getIndex(event) {
+const getIndex = event => {
 	const id = parseInt(event.target.parentNode.parentNode.id.split('-')[1]);
 	const ids = myLibrary.map(cur => cur.id);
 	return ids.indexOf(id);
-}
+};
 
 document.querySelector('#table-body').addEventListener('click', event => {
 	if (event.target.id === 'delete') {
