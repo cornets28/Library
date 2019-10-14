@@ -1,4 +1,4 @@
-let myLibrary = [
+const myLibrary = [
 	new Book(
 		0,
 		'Sample Book',
@@ -36,7 +36,7 @@ let myLibrary = [
 render();
 
 function render() {
-	let library = document.querySelector('.library');
+	const library = document.querySelector('.library');
 	library.innerHTML = '';
 	myLibrary.forEach(book => {
 		let bookHtml = `
@@ -46,7 +46,8 @@ function render() {
       <p>${book.pages}</p>
       <p>Is Read: ${book.isRead}</p>
       <img src=${book.image} alt=${book.name}>
-      <button>X</button>
+      <button id="delete">X</button>
+      <button id="toggle-read">${book.isRead ? 'Mark Unread' : 'Mark Read'}</button>
     </div>`;
 		library.insertAdjacentHTML('beforeend', bookHtml);
 	});
@@ -60,6 +61,10 @@ function Book(id, title, author, numPages, isRead, image) {
 	this.isRead = isRead;
 	this.image = image;
 }
+
+Book.prototype.toggleRead = function() {
+	this.isRead = !this.isRead;
+};
 
 function addBookToLibrary(e) {
 	e.preventDefault();
@@ -85,12 +90,32 @@ function addBookToLibrary(e) {
 
 document.querySelector('#add-book').addEventListener('click', addBookToLibrary);
 
-document.querySelector('.library').addEventListener('click', event => {
-	let deleteId = parseInt(event.target.parentNode.id.split('-')[1]);
-	let ids = myLibrary.map(cur => cur.id);
-	let index = ids.indexOf(deleteId);
+function deleteBook(event) {
+	const index = getIndex(event);
 	if (index !== -1) {
 		myLibrary.splice(index, 1);
 	}
 	render();
+}
+
+function toggleRead(event) {
+	const index = getIndex(event);
+	if (index !== -1) {
+		myLibrary[index].toggleRead();
+	}
+	render();
+}
+
+function getIndex(event) {
+	const id = parseInt(event.target.parentNode.id.split('-')[1]);
+	const ids = myLibrary.map(cur => cur.id);
+	return ids.indexOf(id);
+}
+
+document.querySelector('.library').addEventListener('click', event => {
+	if (event.target.id === 'delete') {
+		deleteBook(event);
+	} else if (event.target.id === 'toggle-read') {
+		toggleRead(event);
+	}
 });
