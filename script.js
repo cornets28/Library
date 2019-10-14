@@ -3,24 +3,23 @@ const myLibrary = [];
 render();
 
 function render() {
-	const library = document.querySelector('.library');
-	library.innerHTML = '';
-
-	libraryData = JSON.parse(localStorage.getItem('library') || '[]');
-
-	libraryData.forEach(book => {
+	library = '';
+	myLibrary.forEach(book => {
 		let bookHtml = `
-    <div id=book-${book.id}>
-      <p>${book.title}</p>
-      <p>${book.author}</p>
-      <p>${book.pages}</p>
-      <p>Is Read: ${book.isRead}</p>
-      <img src=${book.image} alt=${book.name}>
-      <button id="delete">X</button>
-      <button id="toggle-read">${book.isRead ? 'Mark Unread' : 'Mark Read'}</button>
-    </div>`;
-		library.insertAdjacentHTML('beforeend', bookHtml);
+    <tr id=book-${book.id}>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.numPages}</p>
+	  <td>Is Read: ${book.isRead}</td>
+	  <td><img width="30" height="40" src=${book.image} alt=${book.name}>
+	  <td><button id="delete">X</button></td>
+
+      </td>
+    </tr>`;
+		library += bookHtml;
 	});
+
+	document.getElementById('table-body').innerHTML = library;
 }
 
 function Book(id, title, author, numPages, isRead, image) {
