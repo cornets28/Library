@@ -36,20 +36,23 @@ let myLibrary = [
 render();
 
 function render() {
-	let library = document.querySelector('.library');
-	library.innerHTML = '';
+	library = ""
 	myLibrary.forEach(book => {
 		let bookHtml = `
-    <div id=book-${book.id}>
-      <p>${book.title}</p>
-      <p>${book.author}</p>
-      <p>${book.pages}</p>
-      <p>Is Read: ${book.isRead}</p>
-      <img src=${book.image} alt=${book.name}>
-      <button>X</button>
-    </div>`;
-		library.insertAdjacentHTML('beforeend', bookHtml);
+    <tr id=book-${book.id}>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.numPages}</p>
+	  <td>Is Read: ${book.isRead}</td>
+	  <td><img width="30" height="40" src=${book.image} alt=${book.name}>
+	  <td><button id="delete">X</button></td>
+
+      </td>
+    </tr>`;
+		library+=bookHtml;
 	});
+
+	document.getElementById("table-body").innerHTML = library;
 }
 
 function Book(id, title, author, numPages, isRead, image) {
@@ -60,6 +63,32 @@ function Book(id, title, author, numPages, isRead, image) {
 	this.isRead = isRead;
 	this.image = image;
 }
+
+function deleteBook(event) {
+	const index = getIndex(event);
+	if (index !== -1) {
+		myLibrary.splice(index, 1);
+	}
+
+	localStorage.setItem('library', JSON.stringify(myLibrary));
+	render();
+}
+
+function toggleRead(event) {
+	const index = getIndex(event);
+	if (index !== -1) {
+		myLibrary[index].toggleRead();
+	}
+	localStorage.setItem('library', JSON.stringify(myLibrary));
+	render();
+}
+
+function getIndex(event) {
+	const id = parseInt(event.target.parentNode.id.split('-')[1]);
+	const ids = myLibrary.map(cur => cur.id);
+	return ids.indexOf(id);
+}
+
 
 function addBookToLibrary(e) {
 	e.preventDefault();
@@ -84,7 +113,10 @@ function addBookToLibrary(e) {
 }
 
 document.querySelector('#add-book').addEventListener('click', addBookToLibrary);
-
 document.querySelector('.library').addEventListener('click', event => {
-	let deleteId = event.target.parentNode.id.split('-')[1];
+	if (event.target.id === 'delete') {
+		deleteBook(event);
+	} else if (event.target.id === 'toggle-read') {
+		toggleRead(event);
+	}
 });
