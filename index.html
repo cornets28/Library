@@ -12,20 +12,20 @@
   <body>
 
     <div class="library">
-      <div id="book">
-        <p>name</p>
-        <p>description</p>
-        <img src="#" alt="#">
-      </div>
+
     </div>
 
     <form>
-      <input type="text" name="book" id="book-name">
-      <input type="text" name="description" id="book-description">
-      <input type="text" name="image" id="book-img">
-      <button type="submit">Add new book</button>
+      <input type="text" name="author" id="book-author"  placeholder="Enter book author">
+      <input type="text" name="title" id="book-title"  placeholder="Enter book title">
+      <input type="text" name="numPages" id="book-numPages"  placeholder="Enter num of pages">
+      <input type="text" name="image" id="book-image"  placeholder="Enter image url">
+
+      Have you read it? <input type="radio" name="isRead" id="book-isRead">
+
+      <button type="submit" id="add-book">Add new book</button>
     </form>
-    <script src="script.js" id="add-book"></script>
+    <script src="script.js"></script>
   </body>
 
 </html>
