@@ -10,9 +10,12 @@ function render() {
       <td>${book.title}</td>
       <td>${book.author}</td>
       <td>${book.numPages}</p>
-	  <td>Is Read: ${book.isRead}</td>
-	  <td><img width="30" height="40" src=${book.image} alt=${book.name}>
-	  <td><button id="delete">X</button></td>
+	  	<td>Is Read: ${book.isRead}</td>
+	  	<td><img width="30" height="40" src=${book.image} alt=${book.name}>
+			<td>
+				<button id="toggle-read">${book.isRead ? 'Mark Unread' : 'Mark Read'}</button>
+				<button id="delete">Delete Book</button>
+			</td>
 
       </td>
     </tr>`;
@@ -81,12 +84,12 @@ function toggleRead(event) {
 }
 
 function getIndex(event) {
-	const id = parseInt(event.target.parentNode.id.split('-')[1]);
+	const id = parseInt(event.target.parentNode.parentNode.id.split('-')[1]);
 	const ids = myLibrary.map(cur => cur.id);
 	return ids.indexOf(id);
 }
 
-document.querySelector('.library').addEventListener('click', event => {
+document.querySelector('#table-body').addEventListener('click', event => {
 	if (event.target.id === 'delete') {
 		deleteBook(event);
 	} else if (event.target.id === 'toggle-read') {
