@@ -86,5 +86,11 @@ function addBookToLibrary(e) {
 document.querySelector('#add-book').addEventListener('click', addBookToLibrary);
 
 document.querySelector('.library').addEventListener('click', event => {
-	let deleteId = event.target.parentNode.id.split('-')[1];
+	let deleteId = parseInt(event.target.parentNode.id.split('-')[1]);
+	let ids = myLibrary.map(cur => cur.id);
+	let index = ids.indexOf(deleteId);
+	if (index !== -1) {
+		myLibrary.splice(index, 1);
+	}
+	render();
 });
