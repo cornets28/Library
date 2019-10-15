@@ -4,7 +4,7 @@ const render = () => {
   let library = "";
   const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
   libraryData.forEach((book) => {
-  	let bookHtml = `
+  	const bookHtml = `
      <tr id=book-${book.id}>
        <td>${book.title}</td>
        <td>${book.author}</td>
@@ -33,23 +33,23 @@ function Book(id, title, author, numPages, isRead, image) {
 }
 
 Book.prototype.toggleRead = function() {
-	this.isRead = !this.isRead;
+	 this.isRead = !this.isRead;
 };
 
-const addBookToLibrary = e => {
-	const author = document.querySelector('#book-author');
-	const title = document.querySelector('#book-title');
-	const numPages = document.querySelector('#book-numPages');
-	const isRead = document.querySelector('#book-isRead');
-	const image = document.querySelector('#book-image');
+const addBookToLibrary = () => {
+	 const author = document.querySelector('#book-author');
+	 const title = document.querySelector('#book-title');
+	 const numPages = document.querySelector('#book-numPages');
+	 const isRead = document.querySelector('#book-isRead');
+	 const image = document.querySelector('#book-image');
 
 	// Create id from last item's id
 	let id;
 	if (myLibrary.length > 0) {
 		id = myLibrary[myLibrary.length - 1].id + 1;
 	} else {
-		id = 0;
-	}
+		    id = 0;
+	 }
 
 	const book = new Book(id, title.value, author.value, numPages.value, isRead.checked, image.value);
 	myLibrary.push(book);
@@ -60,7 +60,7 @@ const addBookToLibrary = e => {
 
 document.querySelector('#add-book').addEventListener('click', addBookToLibrary);
 
-const deleteBook = event => {
+const deleteBook = (event) => {
 	const index = getIndex(event);
 	if (index !== -1) {
 		myLibrary.splice(index, 1);
