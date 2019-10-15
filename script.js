@@ -1,29 +1,24 @@
 const myLibrary = [];
 
 const render = () => {
-	let library = ``;
-
-	const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
-
-	libraryData.forEach(book => {
-		let bookHtml = `
-    <tr id=book-${book.id}>
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td>${book.numPages}</p>
-	  	<td>Is Read: ${book.isRead}</td>
-	  	<td><img width="30" height="40" src=${book.image} alt=${book.name}>
-			<td>
-				<button id="toggle-read">${book.isRead ? 'Mark Unread' : 'Mark Read'}</button>
-				<button id="delete">Delete Book</button>
-			</td>
-
-      </td>
+  let library = ``;
+  const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
+  libraryData.forEach(book => {
+  	let bookHtml = `
+     <tr id=book-${book.id}>
+       <td>${book.title}</td>
+       <td>${book.author}</td>
+       <td>${book.numPages}</p>
+    	<td>Is Read: ${book.isRead}</td>
+    	<td><img width="30" height="40" src=${book.image} alt=${book.name}>
+  		<td>
+  		  <button id="toggle-read">${book.isRead ? 'Mark Unread' : 'Mark Read'}</button>
+  		  <button id="delete">Delete Book</button>
+		</td>
     </tr>`;
 		library += bookHtml;
-	});
-
-	document.getElementById('table-body').innerHTML = library;
+  });
+  document.getElementById('table-body').innerHTML = library;
 };
 
 render();
