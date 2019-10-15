@@ -1,9 +1,9 @@
 const myLibrary = [];
 
 const render = () => {
-  let library = ``;
+  let library = "";
   const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
-  libraryData.forEach(book => {
+  libraryData.forEach((book) => {
   	let bookHtml = `
      <tr id=book-${book.id}>
        <td>${book.title}</td>
@@ -16,7 +16,7 @@ const render = () => {
   		  <button id="delete">Delete Book</button>
 		</td>
     </tr>`;
-		library += bookHtml;
+		  library += bookHtml;
   });
   document.getElementById('table-body').innerHTML = library;
 };
@@ -24,12 +24,12 @@ const render = () => {
 render();
 
 function Book(id, title, author, numPages, isRead, image) {
-	this.id = id;
-	this.title = title;
-	this.author = author;
-	this.numPages = numPages;
-	this.isRead = isRead;
-	this.image = image;
+	 this.id = id;
+	 this.title = title;
+	 this.author = author;
+	 this.numPages = numPages;
+	 this.isRead = isRead;
+	 this.image = image;
 }
 
 Book.prototype.toggleRead = function() {
