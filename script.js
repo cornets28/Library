@@ -1,7 +1,7 @@
 const myLibrary = [];
 
 const render = () => {
-  let library = "";
+  let library = '';
   const libraryData = JSON.parse(localStorage.getItem('library') || '[]');
   libraryData.forEach((book) => {
   	const bookHtml = `
