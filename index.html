@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Library</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>My Library</h1>
+    </header>
+
+    <table>
+      <thead>
+        <th id="title">Title</th>
+        <th id="author">Author</th>
+        <th id="pages">Pages</th>
+        <th id="read">Read</th>
+        <th id="remove">Image</th>
+        <th id="remove">Remove</th>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+
+    <div class="bookForm">
+      <form>
+
+        <div>
+          <label class="gridAuthor">Title</label>
+          <input type="text" name="title" id="book-title"  placeholder="Enter book title" required=true>
+        </div>
+        <div>
+          <label class="gridAuthor"> Author</label>
+          <input type="text" name="author" id="book-author"  placeholder="Enter book author" required=true>
+        </div>
+        <div>
+          <label class="gridAuthor"> Pages</label>
+          <input type="number" name="numPages" id="book-numPages"  placeholder="Enter num of pages" required=true>
+        </div>
+        <div>
+          <label class="gridAuthor"> Image Url</label>
+          <input type="text" name="image" id="book-image" placeholder="Enter image url" required=true>
+        </div>
+
+        Read? <input type="radio" name="isRead" id="book-isRead">
+
+        <button type="submit" id="add-book">Add new book</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+
+</html>

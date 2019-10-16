@@ -1,0 +1,52 @@
+body {
+   background-color: rgb(237, 241, 168);
+}
+h1 {
+  margin: 40px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(233, 190, 165);
+  margin-bottom: 10px;
+  width: 90%;
+  margin: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+form {
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+
+.bookForm {
+    position: static;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: auto;
+    background-color: rgb(233, 190, 165);
+  }
+
+ 
+table,
+th,
+td {
+    border: 1px solid green;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align:  12px;
+}
+table {
+    width:90%;
+    margin: auto;
+    /* margin-top: 50px; */
+    background-color: rgb(128 128 126);
+    
+}
+th{
+    background-color: rgb(113, 179, 179)
+}
